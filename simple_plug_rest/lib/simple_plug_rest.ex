@@ -1,6 +1,6 @@
 defmodule SimplePlugRest do
   @moduledoc """
-  Documentation for `SimplePlugRest`.
+  A Plug that always responds with a string
   """
   import Plug.Conn
 
@@ -9,7 +9,7 @@ defmodule SimplePlugRest do
   end
 
   @doc """
-  Simple route for testing
+  Simple route that returns a string
   """
   @spec call(Plug.Conn.t(), any) :: Plug.Conn.t()
   def call(conn, _opts) do

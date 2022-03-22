@@ -1,6 +1,4 @@
 defmodule SimplePlugRest.Application do
-  # See https://hexdocs.pm/elixir/Application.html
-  # for more information on OTP Applications
   @moduledoc false
 
   use Application
@@ -8,8 +6,7 @@ defmodule SimplePlugRest.Application do
   @impl true
   def start(_type, _args) do
     children = [
-      # Starts a worker by calling: SimplePlugRest.Worker.start_link(arg)
-      # {SimplePlugRest.Worker, arg}
+      # Start `SimplePlugRest` and listen on port 3000
       {Plug.Cowboy, scheme: :http, plug: SimplePlugRest, options: [port: 3000]}
     ]
 
