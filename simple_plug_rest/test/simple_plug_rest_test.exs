@@ -1,8 +1,13 @@
 defmodule SimplePlugRestTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
+  use Plug.Test
+
   doctest SimplePlugRest
 
   test "greets the world" do
-    assert SimplePlugRest.hello() == :world
+    conn = conn(:get, "/")
+    res = SimplePlugRest.call(conn, nil)
+
+    assert res.resp_body == "Hello World"
   end
 end
