@@ -2,6 +2,8 @@
 
 Serve assets via Cowboy with Elixir
 
+Read more about it here, [How do I serve static assets on the web with Elixir using Cowboy and Plug?](https://blog.sethcorker.com/question/how-do-i-serve-static-assets-on-the-web-with-elixir-using-cowboy-and-plug/)
+
 ## Setup
 
 1. `mix deps.get`
