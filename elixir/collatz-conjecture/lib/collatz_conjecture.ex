@@ -21,8 +21,4 @@ defmodule CollatzConjecture do
 
     1 + calc(new_num)
   end
-
-  def calc(_input) do
-    raise FunctionClauseError
-  end
 end
