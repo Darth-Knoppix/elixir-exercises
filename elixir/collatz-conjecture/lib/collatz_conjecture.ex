@@ -8,26 +8,21 @@ defmodule CollatzConjecture do
     - if number is even, divide by 2
   """
   @spec calc(input :: pos_integer()) :: non_neg_integer()
-  def calc(input) when input == 1 do
+  def calc(input) when is_integer(input) and input == 1 do
     0
   end
 
-  def calc(input) do
-    calc_step(input, 1)
-  end
-
-  @spec calc_step(input :: pos_integer(), iteration :: non_neg_integer()) :: non_neg_integer()
-  def calc_step(input, _iteration) when input == 1 do
-    1
-  end
-
-  def calc_step(input, iteration) do
+  def calc(input) when is_integer(input) and input > 0 do
     new_num =
       case Integer.is_odd(input) do
-        true -> 1 + input * 3
-        false -> input / 2
+        true -> input * 3 + 1
+        false -> div(input, 2)
       end
 
-    calc_step(new_num, iteration + 1)
+    1 + calc(new_num)
+  end
+
+  def calc(_input) do
+    raise FunctionClauseError
   end
 end
