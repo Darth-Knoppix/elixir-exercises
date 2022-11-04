@@ -31,8 +31,15 @@ defmodule RationalNumbers do
   Multiply two rational numbers
   """
   @spec multiply(a :: rational, b :: rational) :: rational
+  def multiply({a1, a2}, {1, 1}), do: {a1, a2}
+  def multiply({_a1, _a2}, {0, 1}), do: {0, 1}
+
   def multiply({a1, a2}, {b1, b2}) do
-    {a1 * a2, b1 * b2}
+    cond do
+      a1 < 0 and b1 < 0 -> RationalNumbers.abs({a1 * a2, b1 * b2})
+      true -> {a1 * a2, b1 * b2}
+    end
+    |> reduce()
   end
 
   @doc """
@@ -46,7 +53,8 @@ defmodule RationalNumbers do
   Absolute value of a rational number
   """
   @spec abs(a :: rational) :: rational
-  def abs(a) do
+  def abs({a, b}) do
+    {Kernel.abs(a), Kernel.abs(b)} |> reduce()
   end
 
   @doc """
