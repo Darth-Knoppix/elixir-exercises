@@ -20,7 +20,11 @@ defmodule RationalNumbers do
   Subtract two rational numbers
   """
   @spec subtract(a :: rational, b :: rational) :: rational
-  def subtract(a, b) do
+  def subtract({a1, a2}, {a1, a2}), do: {0, 1}
+
+  def subtract({a1, a2}, {b1, b2}) do
+    denominator = a2 * b2
+    {a1 * b2 - b1 * a2, denominator}
   end
 
   @doc """
