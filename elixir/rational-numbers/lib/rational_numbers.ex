@@ -31,7 +31,8 @@ defmodule RationalNumbers do
   Multiply two rational numbers
   """
   @spec multiply(a :: rational, b :: rational) :: rational
-  def multiply(a, b) do
+  def multiply({a1, a2}, {b1, b2}) do
+    {a1 * a2, b1 * b2}
   end
 
   @doc """
@@ -66,6 +67,12 @@ defmodule RationalNumbers do
   Reduce a rational number to its lowest terms
   """
   @spec reduce(a :: rational) :: rational
-  def reduce(a) do
+  def reduce({a, b}) when a == b, do: {1, 1}
+  def reduce({0, _b}), do: {0, 1}
+  def reduce({a, b}) when b < 0 and a > 0, do: reduce({-1 * a, -1 * b})
+
+  def reduce({a, b}) do
+    gcd = Integer.gcd(a, b)
+    {div(a, gcd), div(b, gcd)}
   end
 end
