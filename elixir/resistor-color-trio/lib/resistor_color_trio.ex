@@ -11,43 +11,26 @@ defmodule ResistorColorTrio do
   def code(:grey), do: 8
   def code(:white), do: 9
 
+  @spec convert_with_unit(pos_integer()) :: {pos_integer(), :kiloohms | :ohms}
+  def convert_with_unit(value) when value > 1000, do: {div(value, 1000), :kiloohms}
+  def convert_with_unit(value), do: {value, :ohms}
+
   @doc """
   Calculate the resistance value in ohm or kiloohm from resistor colors
   """
   @spec label(colors :: [atom]) :: {number, :ohms | :kiloohms}
   def label(colors) do
-    {num_values, [zero]} = Enum.split(colors, Enum.count(colors) - 1)
-
-    zero = code(zero)
-
-    {num_of_zeroes, unit} =
-      cond do
-        zero == 0 ->
-          {0, :ohms}
-
-        zero < 2 ->
-          {zero, :ohms}
-
-        true ->
-          {zero, :kiloohms}
-      end
+    {num_values, [zero]} =
+      colors
+      |> Enum.map(&code/1)
+      |> Enum.split(Enum.count(colors) - 1)
 
     zero_str =
-      0..num_of_zeroes
-      |> Enum.filter(fn i -> i > 0 end)
+      0..zero
+      |> Enum.drop(1)
       |> Enum.map_join("", fn _ -> "0" end)
 
-    value =
-      num_values
-      |> Enum.map_join("", &code/1)
-
-    final_value =
-      [value | [zero_str]]
-      |> Enum.join("")
-      |> String.to_integer()
-
-    final_value = if unit == :ohms, do: final_value, else: div(final_value, 1000)
-
-    {final_value, unit}
+    String.to_integer(Enum.join(num_values, "") <> zero_str)
+    |> convert_with_unit()
   end
 end
