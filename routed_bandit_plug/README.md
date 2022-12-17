@@ -1,21 +1,20 @@
 # RoutedBanditPlug
 
-**TODO: Add description**
+## Setup
 
-## Installation
+Install dependencies `mix deps.get`
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `routed_bandit_plug` to your list of dependencies in `mix.exs`:
+### Generating certificates for SSL
 
-```elixir
-def deps do
-  [
-    {:routed_bandit_plug, "~> 0.1.0"}
-  ]
-end
+```sh
+brew install mkcert
+brew install nss # if you use Firefox
+
+mkcert -install
+
+mix gen.certs
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at <https://hexdocs.pm/routed_bandit_plug>.
+## Running the server
 
+`mix run --no-halt`

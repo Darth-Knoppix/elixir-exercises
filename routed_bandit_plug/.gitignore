@@ -26,3 +26,7 @@ routed_bandit_plug-*.tar
 /tmp/
 
 .DS_Store
+
+
+config/cert.key
+config/cert.pem
